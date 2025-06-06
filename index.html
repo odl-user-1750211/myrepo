@@ -7,94 +7,106 @@
   <style>
     body {
       font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      margin: 0;
-      background-color: #f4f4f4;
+      background-color: #eef2f3;
     }
-
     .calculator {
-      background: #fff;
+      background-color: #fff;
       padding: 20px;
-      border-radius: 8px;
-      width: 300px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+      width: 250px;
     }
-
-    #display {
+    .display {
       width: 100%;
       height: 50px;
       font-size: 1.5em;
       text-align: right;
-      padding: 5px;
       margin-bottom: 15px;
+      padding: 10px;
       border: 1px solid #ccc;
       border-radius: 5px;
+      background-color: #f9f9f9;
     }
-
-    .grid {
+    .button-container {
       display: grid;
-      gap: 10px;
       grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
     }
-
     button {
+      height: 50px;
       font-size: 1.2em;
-      padding: 15px;
-      background-color: #007bff;
-      color: #fff;
+      background-color: #4caf50;
+      color: white;
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: background-color 0.3s;
     }
-
     button:hover {
-      background-color: #0056b3;
+      background-color: #45a049;
     }
-
     .clear {
+      background-color: #f44336;
       grid-column: span 3;
-      background-color: #dc3545;
     }
-
     .clear:hover {
-      background-color: #b02a37;
+      background-color: #d32f2f;
+    }
+    .equals {
+      background-color: #008cba;
+      grid-column: span 3;
+    }
+    .equals:hover {
+      background-color: #005f6a;
     }
   </style>
 </head>
 <body>
-
   <div class="calculator">
-    <input type="text" id="display" readonly />
-    <div class="grid">
-      <!-- Number buttons -->
-      <button onclick="appendToDisplay('1')">1</button>
-      <button onclick="appendToDisplay('2')">2</button>
-      <button onclick="appendToDisplay('3')">3</button>
-      <button onclick="appendToDisplay('4')">4</button>
-      <button onclick="appendToDisplay('5')">5</button>
-      <button onclick="appendToDisplay('6')">6</button>
-      <button onclick="appendToDisplay('7')">7</button>
-      <button onclick="appendToDisplay('8')">8</button>
-      <button onclick="appendToDisplay('9')">9</button>
-      <button onclick="appendToDisplay('0')">0</button>
-      <!-- Clear button -->
-      <button class="clear" onclick="clearDisplay()">Clear</button>
+    <input type="text" id="display" class="display" readonly>
+    <div class="button-container">
+      <button onclick="append('7')">7</button>
+      <button onclick="append('8')">8</button>
+      <button onclick="append('9')">9</button>
+      <button onclick="append('4')">4</button>
+      <button onclick="append('5')">5</button>
+      <button onclick="append('6')">6</button>
+      <button onclick="append('1')">1</button>
+      <button onclick="append('2')">2</button>
+      <button onclick="append('3')">3</button>
+      <button onclick="append('0')">0</button>
+      <button class="clear" onclick="clearAll()">C</button>
+      <button class="equals" onclick="calculate()">=</button>
     </div>
   </div>
 
   <script>
-    const display = document.getElementById('display');
+    let expression = "";
 
-    function appendToDisplay(value) {
-      display.value += value;
+    function append(value) {
+      expression += value;
+      document.getElementById('display').value = expression;
     }
 
-    function clearDisplay() {
-      display.value = '';
+    function clearAll() {
+      expression = "";
+      document.getElementById('display').value = "";
+    }
+
+    function calculate() {
+      try {
+        expression = eval(expression).toString();
+        document.getElementById('display').value = expression;
+      } catch (error) {
+        document.getElementById('display').value = "Error";
+        setTimeout(clearAll, 1000); // Automatically clear after 1 second
+      }
     }
   </script>
 </body>
