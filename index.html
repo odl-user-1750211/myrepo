@@ -5,108 +5,88 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ultra-Simple Calculator</title>
   <style>
+    /* Basic styling for the calculator */
     body {
       font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 0;
-      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: #eef2f3;
+      height: 100vh;
+      margin: 0;
+      background-color: #f4f4f9;
     }
-    .calculator {
-      background-color: #fff;
-      padding: 20px;
+
+    #calculator {
+      background-color: #ffffff;
+      border: 2px solid #deddde;
       border-radius: 10px;
-      box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-      width: 250px;
+      width: 300px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
-    .display {
+
+    #display {
       width: 100%;
-      height: 50px;
-      font-size: 1.5em;
-      text-align: right;
-      margin-bottom: 15px;
-      padding: 10px;
-      border: 1px solid #ccc;
+      height: 40px;
+      border: 2px solid #deddde;
       border-radius: 5px;
-      background-color: #f9f9f9;
+      margin-bottom: 20px;
+      font-size: 18px;
+      text-align: right;
+      padding: 5px;
     }
+
     .button-container {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
     }
+
     button {
+      width: 100%;
       height: 50px;
-      font-size: 1.2em;
-      background-color: #4caf50;
-      color: white;
+      font-size: 18px;
       border: none;
       border-radius: 5px;
+      background-color: #5591f7;
+      color: white;
       cursor: pointer;
-      transition: background-color 0.3s;
+      transition: background-color 0.2s ease;
     }
+
     button:hover {
-      background-color: #45a049;
-    }
-    .clear {
-      background-color: #f44336;
-      grid-column: span 3;
-    }
-    .clear:hover {
-      background-color: #d32f2f;
-    }
-    .equals {
-      background-color: #008cba;
-      grid-column: span 3;
-    }
-    .equals:hover {
-      background-color: #005f6a;
+      background-color: #487dd1;
     }
   </style>
 </head>
 <body>
-  <div class="calculator">
-    <input type="text" id="display" class="display" readonly>
+  <div id="calculator">
+    <!-- The text display field -->
+    <input type="text" id="display" readonly />
+
+    <!-- Number buttons -->
     <div class="button-container">
-      <button onclick="append('7')">7</button>
-      <button onclick="append('8')">8</button>
-      <button onclick="append('9')">9</button>
-      <button onclick="append('4')">4</button>
-      <button onclick="append('5')">5</button>
-      <button onclick="append('6')">6</button>
-      <button onclick="append('1')">1</button>
-      <button onclick="append('2')">2</button>
-      <button onclick="append('3')">3</button>
-      <button onclick="append('0')">0</button>
-      <button class="clear" onclick="clearAll()">C</button>
-      <button class="equals" onclick="calculate()">=</button>
+      <button onclick="appendToDisplay('7')">7</button>
+      <button onclick="appendToDisplay('8')">8</button>
+      <button onclick="appendToDisplay('9')">9</button>
+      
+      <button onclick="appendToDisplay('4')">4</button>
+      <button onclick="appendToDisplay('5')">5</button>
+      <button onclick="appendToDisplay('6')">6</button>
+      
+      <button onclick="appendToDisplay('1')">1</button>
+      <button onclick="appendToDisplay('2')">2</button>
+      <button onclick="appendToDisplay('3')">3</button>
+      
+      <button onclick="appendToDisplay('0')" style="grid-column: span 3;">0</button>
     </div>
   </div>
 
   <script>
-    let expression = "";
-
-    function append(value) {
-      expression += value;
-      document.getElementById('display').value = expression;
-    }
-
-    function clearAll() {
-      expression = "";
-      document.getElementById('display').value = "";
-    }
-
-    function calculate() {
-      try {
-        expression = eval(expression).toString();
-        document.getElementById('display').value = expression;
-      } catch (error) {
-        document.getElementById('display').value = "Error";
-        setTimeout(clearAll, 1000); // Automatically clear after 1 second
-      }
+    // Function to append the clicked button value to the display
+    function appendToDisplay(value) {
+      const display = document.getElementById('display');
+      display.value += value; // Append the clicked number
     }
   </script>
 </body>
